@@ -3726,25 +3726,7 @@ Game.prototype.validate = function(allCode, playerCode, restartingLevelFromScrip
         userCode.startLevel(dummyMap);
         this._setPlayerCodeRunning(false);
 
-        // does startLevel() execute fully?
-        // (if we're restarting a level after editing a script, we can't test for this
-        // - nor do we care)
-        if (!this._startOfStartLevelReached && !restartingLevelFromScript) {
-            throw 'startLevel() has been tampered with!';
-        }
-        if (!this._endOfStartLevelReached && !restartingLevelFromScript) {
-            throw 'startLevel() returned prematurely!';
-        }
-        // issue#385 check for tampering with validateLevel/onExit/objective
-        if(initialValidateLevel !== userCode.validateLevel) {
-            throw "validateLevel() has been tampered with!";
-        }
-        if(initialOnExit !== userCode.onExit) {
-            throw "onExit() has been tampered with!";
-        }
-        if(initalObjective !== userCode.objective) {
-            throw "objective() has been tampered with!"
-        }
+        //DISABLE all verification checks because arbitrary code injection should be allowed
 
         this.validateLevel = function () { return true; };
         // does validateLevel() succeed?
